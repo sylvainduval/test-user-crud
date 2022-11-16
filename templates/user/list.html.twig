@@ -1,0 +1,67 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Utilisateurs{% endblock %}
+
+{% block body %}
+	<div class="container">
+		<h1>Liste des utilisateurs</h1>
+
+		<div class="row">
+			<div class="col-md-2"></div>
+			<div class="col-md-8">
+				{% if users is empty %}
+				<p class="text-secondary text-center">
+					Aucun utilisateur pour l'instant.
+			</div>
+			{% else %}
+				<table class="table">
+					<thead>
+					<tr>
+						<th scope="col">ID</th>
+						<th scope="col">Nom</th>
+						<th scope="col">Email</th>
+						<th scope="col">Date de naissance</th>
+						<th scope="col">Actif</th>
+						<th scope="col"></th>
+					</tr>
+					</thead>
+					<tbody>
+					{% for user in users %}
+						<tr>
+							<th scope="row"><a href="user/{{ user.getId() }}">{{ user.getId() }}</a></th>
+							<td>{{ user.getFullName() }}</td>
+							<td>{{ user.getEmail() }}</td>
+							<td>{{ user.getBirthdayDate()|date("d-m-Y") }}</td>
+							<td>{% if user.isActive == true %}Oui{% else %}Non{% endif %}</td>
+							<td>
+								{% if user.isActive == true %}
+									<span role="button" class="link-primary" onclick="disableAccount('{{ user.getId() }}')">Désactiver</span>
+								{% endif %}
+							</td>
+						</tr>
+					{% endfor %}
+					</tbody>
+				</table>
+			{% endif %}
+		</div>
+		<div class="col-md-2"></div>
+		<hr>
+		<a href="{{ url('add_user') }}">Créer un utilisateur</a>
+	</div>
+
+	<script type="text/javascript">
+		let disableAccount = (id) => {
+			new modalComponent({
+				title: 'Désactiver un compte',
+				message: 'Voulez-vous vraiment désactiver ce compte ?',
+				onSubmit: () => {
+					fetch('user/' + id + '/disable', {
+						method: 'POST'
+					}).then(() => {
+						location.reload();
+					})
+				}
+			})
+		}
+	</script>
+{% endblock %}

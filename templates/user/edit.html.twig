@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Utilisateurs{% endblock %}
+
+{% block body %}
+	<div class="container">
+		<h1>{{ title }}</h1>
+
+		<div class="row">
+			<div class="col-md-2"></div>
+			<div class="col-md-8">
+				{{ form_start(form) }}
+				<div class="mb-3">
+					{{ form_label(form.firstName, null, {'label_attr': {'class': 'form-label'}}) }}
+					{{ form_widget(form.firstName, {'attr': {'class': 'form-control'}}) }}
+				</div>
+				<div class="mb-3">
+					{{ form_label(form.lastName, null, {'label_attr': {'class': 'form-label'}}) }}
+					{{ form_widget(form.lastName, {'attr': {'class': 'form-control'}}) }}
+				</div>
+				<div class="mb-3">
+					{{ form_label(form.email, null, {'label_attr': {'class': 'form-label'}}) }}
+					{{ form_widget(form.email, {'attr': {'class': 'form-control'}}) }}
+				</div>
+				<div class="mb-3">
+					{{ form_label(form.birthdayDate, null, {'label_attr': {'class': 'form-label'}}) }}
+					{{ form_widget(form.birthdayDate, {'attr': {'class': 'form-control'}}) }}
+				</div>
+				<div class="mb-3">
+					{{ form_label(form.save) }}
+					{{ form_widget(form.save, {'attr': {'class': 'btn btn-primary'}}) }}
+				</div>
+				{{ form_end(form) }}
+			</div>
+			<div class="col-md-2"></div>
+			<hr>
+			<p>
+				<a href="{{ url('users') }}">Retour à la liste</a>
+			</p>
+		</div>
+	</div>
+{% endblock %}
