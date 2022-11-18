@@ -12,7 +12,7 @@
 		{% block javascripts %}
 			<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 			<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.2/js/bootstrap.min.js" integrity="sha512-5BqtYqlWfJemW5+v+TZUs22uigI8tXeVah5S/1Z6qBLVO7gakAOtkOzUtgq6dsIo5c0NJdmGPs0H9I+2OHUHVQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-			<script src="./scripts/modalComponent.js"></script>
+			<script src="{{ url('users') }}scripts/modalComponent.js"></script>
 
 			{{ encore_entry_script_tags('app') }}
 		{% endblock %}

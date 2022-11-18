@@ -32,10 +32,10 @@
 							<td>{{ user.getFullName() }}</td>
 							<td>{{ user.getEmail() }}</td>
 							<td>{{ user.getBirthdayDate()|date("d-m-Y") }}</td>
-							<td>{% if user.isActive == true %}Oui{% else %}Non{% endif %}</td>
+							<td id="state_{{ user.getId() }}">{% if user.isActive == true %}Oui{% else %}Non{% endif %}</td>
 							<td>
 								{% if user.isActive == true %}
-									<span role="button" class="link-primary" onclick="disableAccount('{{ user.getId() }}')">Désactiver</span>
+									<span role="button" class="link-primary" onclick="disableAccount('{{ user.getId() }}', this)">Désactiver</span>
 								{% endif %}
 							</td>
 						</tr>
@@ -50,15 +50,17 @@
 	</div>
 
 	<script type="text/javascript">
-		let disableAccount = (id) => {
-			new modalComponent({
+		let disableAccount = (id, element) => {
+			let modal = new modalComponent({
 				title: 'Désactiver un compte',
 				message: 'Voulez-vous vraiment désactiver ce compte ?',
 				onSubmit: () => {
 					fetch('user/' + id + '/disable', {
 						method: 'POST'
 					}).then(() => {
-						location.reload();
+						$('#state_' + id).html('Non');
+						element.remove();
+						modal.hide();
 					})
 				}
 			})

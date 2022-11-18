@@ -7,4 +7,12 @@ let modalComponent = function(params) {
 	$('#modalSubmitter').click(function() {
 		params.onSubmit.call(this);
 	});
+
+	function hide() {
+		$('#multiUsageModal').modal('hide');
+	}
+
+	return {
+		hide
+	}
 }
